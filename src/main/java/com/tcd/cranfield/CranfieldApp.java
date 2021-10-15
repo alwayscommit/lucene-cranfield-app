@@ -2,10 +2,7 @@ package com.tcd.cranfield;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,11 +17,11 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.search.ScoreDoc;
-import org.apache.lucene.search.similarities.*;
+import org.apache.lucene.search.similarities.ClassicSimilarity;
+import org.apache.lucene.search.similarities.Similarity;
 
 import com.tcd.cranfield.lucene.LuceneIndexer;
 import com.tcd.cranfield.lucene.LuceneSearcher;
-import com.tcd.cranfield.lucene.similarity.TfIdfSimilarity;
 import com.tcd.cranfield.model.CranfieldQuery;
 import com.tcd.cranfield.util.CranfieldDocumentParser;
 import com.tcd.cranfield.util.CranfieldQueryParser;
@@ -33,8 +30,10 @@ public class CranfieldApp {
 	
 	private static File cranfieldDataFile;
 	private static File cranfieldQueryFile;
+	private static String outputDirectory = "target/";
 
-	public static void main(String[] args) throws IOException, ParseException {
+	public static void main(String[] args) {
+		System.out.println("hi");
 		if(args[0]==null || args[1]==null) {
 			System.out.println("Cranfield Data and Cranfield Query File are mandatory");
 			return;
@@ -43,10 +42,15 @@ public class CranfieldApp {
 		cranfieldQueryFile = new File(args[1]);
 		
 		//run for different analyzers and similarities
-		run(getIndexWriterConfig(new WhitespaceAnalyzer(), new ClassicSimilarity()));
-		run(getIndexWriterConfig(new WhitespaceAnalyzer(), new BM25Similarity()));
-		run(getIndexWriterConfig(new WhitespaceAnalyzer(), new LMDirichletSimilarity()));
-		run(getIndexWriterConfig(new WhitespaceAnalyzer(), new TfIdfSimilarity()));
+		try {
+			run(getIndexWriterConfig(new WhitespaceAnalyzer(), new ClassicSimilarity()));
+//			run(getIndexWriterConfig(new WhitespaceAnalyzer(), new BM25Similarity()));
+//			run(getIndexWriterConfig(new WhitespaceAnalyzer(), new LMDirichletSimilarity()));
+//			run(getIndexWriterConfig(new WhitespaceAnalyzer(), new TfIdfSimilarity()));
+		} catch (ParseException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static void run(IndexWriterConfig config) throws ParseException, IOException {
@@ -67,7 +71,7 @@ public class CranfieldApp {
 		//search
 		LuceneSearcher luceneSearcher = new LuceneSearcher(indexDataPath);
 		List<ScoreDoc> totalScoreDocList = new ArrayList<ScoreDoc>();
-		Path path = Paths.get(analyzer.getClass().getSimpleName() + "_" + config.getSimilarity().getClass().getSimpleName() + "_output.txt");
+		Path path = Paths.get(outputDirectory+analyzer.getClass().getSimpleName() + "_" + config.getSimilarity().getClass().getSimpleName() + "_output.txt");
 		try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
 			
 			// loop over 225 search queries
