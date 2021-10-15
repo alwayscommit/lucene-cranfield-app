@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.core.WhitespaceAnalyzer;
 import org.apache.lucene.document.Document;
@@ -33,8 +34,8 @@ public class CranfieldApp {
 	private static String outputDirectory = "target/";
 
 	public static void main(String[] args) {
-		if(args[0]==null || args[1]==null) {
-			System.out.println("Cranfield Data and Cranfield Query File are mandatory");
+		if(args.length<2) {
+			System.out.println("Following Arguments are mandatory\n1. Cranfield Data \n2. Cranfield Query");
 			return;
 		}
 		cranfieldDataFile = new File(args[0]);
