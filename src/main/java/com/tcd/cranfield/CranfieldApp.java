@@ -33,7 +33,6 @@ public class CranfieldApp {
 	private static String outputDirectory = "target/";
 
 	public static void main(String[] args) {
-		System.out.println("hi");
 		if(args[0]==null || args[1]==null) {
 			System.out.println("Cranfield Data and Cranfield Query File are mandatory");
 			return;
