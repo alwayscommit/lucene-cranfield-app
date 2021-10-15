@@ -14,11 +14,11 @@ import org.apache.lucene.document.TextField;
 
 public class CranfieldDocumentParser {
 
-	private static final String DOC_ID_PATTERN = ".I ";
-	private static final String DOC_TITLE_PATTERN = ".T";
-	private static final String DOC_AUTHOR_PATTERN = ".A";
-	private static final String DOC_BIBLIOGRAPHY_PATTERN = ".B";
-	private static final String DOC_BODY_PATTERN = ".W";
+	private static final String ID_PATTERN = ".I ";
+	private static final String TITLE_PATTERN = ".T";
+	private static final String AUTHOR_PATTERN = ".A";
+	private static final String BIBLIOGRAPHY_PATTERN = ".B";
+	private static final String BODY_PATTERN = ".W";
 	private static final String BLANK_SPACE = " ";
 	private static final String STARTS_WITH_ANY_HEADER = ".";
 
@@ -34,7 +34,7 @@ public class CranfieldDocumentParser {
 					line = scanner.nextLine();
 				}
 				// intra-document looping
-				if (line.startsWith(DOC_ID_PATTERN)) {
+				if (line.startsWith(ID_PATTERN)) {
 					// create a new cranfield document
 					Document cranfieldDoc = new Document();
 
@@ -58,15 +58,12 @@ public class CranfieldDocumentParser {
 
 	private String setBody(Document cranfieldDoc, Scanner scanner, String bodyLine) {
 		String body = "";
-		if (bodyLine.equals(DOC_BODY_PATTERN)) {
+		if (bodyLine.equals(BODY_PATTERN)) {
 			while (scanner.hasNext()) {
-				
-				
-				
 				String nextLine = scanner.nextLine();
 				//Because .A, .B, do occur in the body as bullet points so to avoid that, we ensure that the next
 				//element is a new doc id
-				if (nextLine.startsWith(DOC_ID_PATTERN)) {
+				if (nextLine.startsWith(ID_PATTERN)) {
 					cranfieldDoc.add(new TextField("body", body, Field.Store.YES));
 					return nextLine;
 				} else {
@@ -81,7 +78,7 @@ public class CranfieldDocumentParser {
 
 	private String setBibliography(Document cranfieldDoc, Scanner scanner, String bibliographyLine) {
 		String bibliography = "";
-		if (bibliographyLine.equals(DOC_BIBLIOGRAPHY_PATTERN)) {
+		if (bibliographyLine.equals(BIBLIOGRAPHY_PATTERN)) {
 			while (scanner.hasNext()) {
 				String nextLine = scanner.nextLine();
 				if (nextLine.startsWith(STARTS_WITH_ANY_HEADER)) {
@@ -97,7 +94,7 @@ public class CranfieldDocumentParser {
 
 	private String setAuthor(Document cranfieldDoc, Scanner scanner, String authorLine) {
 		String author = "";
-		if (authorLine.equals(DOC_AUTHOR_PATTERN)) {
+		if (authorLine.equals(AUTHOR_PATTERN)) {
 			while (scanner.hasNext()) {
 				String nextLine = scanner.nextLine();
 				if (nextLine.startsWith(STARTS_WITH_ANY_HEADER)) {
@@ -115,7 +112,7 @@ public class CranfieldDocumentParser {
 		String title = "";
 		String line = scanner.nextLine();
 		if (StringUtils.isNotEmpty(line)) {
-			if (line.equals(DOC_TITLE_PATTERN)) {
+			if (line.equals(TITLE_PATTERN)) {
 				while (scanner.hasNext()) {
 					String nextLine = scanner.nextLine();
 					if (nextLine.startsWith(STARTS_WITH_ANY_HEADER)) {

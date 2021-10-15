@@ -1,36 +1,102 @@
 package com.tcd.cranfield;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.core.WhitespaceAnalyzer;
 import org.apache.lucene.document.Document;
-import org.apache.lucene.search.Query;
+import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.queryparser.classic.ParseException;
+import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.search.similarities.*;
 
 import com.tcd.cranfield.lucene.LuceneIndexer;
+import com.tcd.cranfield.lucene.LuceneSearcher;
+import com.tcd.cranfield.lucene.similarity.TfIdfSimilarity;
 import com.tcd.cranfield.model.CranfieldQuery;
 import com.tcd.cranfield.util.CranfieldDocumentParser;
 import com.tcd.cranfield.util.CranfieldQueryParser;
 
 public class CranfieldApp {
+	
+	private static File cranfieldDataFile;
+	private static File cranfieldQueryFile;
 
-	public static void main(String[] args) {
-		File cranfieldDataFile = new File(args[0]);
-		File cranfieldQueryFile = new File(args[1]);
+	public static void main(String[] args) throws IOException, ParseException {
+		if(args[0]==null || args[1]==null) {
+			System.out.println("Cranfield Data and Cranfield Query File are mandatory");
+			return;
+		}
+		cranfieldDataFile = new File(args[0]);
+		cranfieldQueryFile = new File(args[1]);
 		
-		//parse documents
+		//run for different analyzers and similarities
+		run(getIndexWriterConfig(new WhitespaceAnalyzer(), new ClassicSimilarity()));
+		run(getIndexWriterConfig(new WhitespaceAnalyzer(), new BM25Similarity()));
+		run(getIndexWriterConfig(new WhitespaceAnalyzer(), new LMDirichletSimilarity()));
+		run(getIndexWriterConfig(new WhitespaceAnalyzer(), new TfIdfSimilarity()));
+	}
+	
+	public static void run(IndexWriterConfig config) throws ParseException, IOException {
+		// parse documents
 		CranfieldDocumentParser documentParser = new CranfieldDocumentParser();
 		List<Document> cranfieldDocList = documentParser.parseCranfieldData(cranfieldDataFile);
-		
-		//index documents
+
+		// index documents
 		LuceneIndexer luceneIndexer = new LuceneIndexer();
-		Analyzer analyzer = luceneIndexer.indexOnVectorSpace(cranfieldDocList);
+		Path indexDataPath = luceneIndexer.index(cranfieldDocList, config);
+
+		Analyzer analyzer = config.getAnalyzer();
 		
-		//parse queries
+		// parse queries
 		CranfieldQueryParser queryParser = new CranfieldQueryParser();
 		List<CranfieldQuery> cranfieldQueryList = queryParser.parseQuery(cranfieldQueryFile);
-		System.out.println(cranfieldQueryList.size());
-		//search using parsed queries
+
+		//search
+		LuceneSearcher luceneSearcher = new LuceneSearcher(indexDataPath);
+		List<ScoreDoc> totalScoreDocList = new ArrayList<ScoreDoc>();
+		Path path = Paths.get(analyzer.getClass().getSimpleName() + "_" + config.getSimilarity().getClass().getSimpleName() + "_output.txt");
+		try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
+			
+			// loop over 225 search queries
+			for (CranfieldQuery query : cranfieldQueryList) {
+				
+				// for each query, we get 1400 results
+				ScoreDoc[] scoredDocs = luceneSearcher.search(query, analyzer);
+				totalScoreDocList.addAll(Arrays.asList(scoredDocs));
+				
+				// output search results to a file
+				for (int docIndex = 0; docIndex < scoredDocs.length; docIndex++) {
+					Document document = luceneSearcher.getDocument(docIndex, scoredDocs);
+					// output file format - query id, 0, docid, 0, score, yuyutu
+					writer.append(query.getQueryId() + " 0 " + document.get("docId") + " " + docIndex + " " + scoredDocs[docIndex].score + " YUYUTU");
+					writer.newLine();
+				}
+
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+
+	private static IndexWriterConfig getIndexWriterConfig(Analyzer analyzer, Similarity similarity) {
+		IndexWriterConfig config = new IndexWriterConfig(analyzer);
+		config.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
+		config.setSimilarity(similarity);
+		return config;
 	}
 
 }

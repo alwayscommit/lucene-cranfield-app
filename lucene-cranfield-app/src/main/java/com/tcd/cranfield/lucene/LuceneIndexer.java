@@ -1,11 +1,11 @@
 package com.tcd.cranfield.lucene;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.core.WhitespaceAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
@@ -15,18 +15,15 @@ import org.apache.lucene.store.FSDirectory;
 
 public class LuceneIndexer {
 
-	public Analyzer indexOnVectorSpace(List<Document> cranfieldDocList) {
+	public Path index(List<Document> cranfieldDocList, IndexWriterConfig config) {
 		try {
-			Analyzer analyzer = new WhitespaceAnalyzer();
-			Directory directory = FSDirectory.open(Paths.get("indexed-docs/vector-space"));
-			IndexWriterConfig config = new IndexWriterConfig(analyzer);
-			config.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
-			config.setSimilarity(new ClassicSimilarity());
+			Path indexPath = Paths.get("indexed-docs/"+config.getAnalyzer().getClass().getSimpleName()+"_"+config.getSimilarity());
+			Directory directory = FSDirectory.open(indexPath);
 			IndexWriter iwriter = new IndexWriter(directory, config);
 			iwriter.addDocuments(cranfieldDocList);
 			iwriter.close();
 			directory.close();
-			return analyzer;
+			return indexPath;
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;

@@ -2,15 +2,15 @@ package com.tcd.cranfield.model;
 
 public class CranfieldQuery {
 
-	private String docId;
+	private String queryId;
 	private String query;
 
-	public String getDocId() {
-		return docId;
+	public String getQueryId() {
+		return queryId;
 	}
 
-	public void setDocId(String docId) {
-		this.docId = docId;
+	public void setQueryId(String queryId) {
+		this.queryId = queryId;
 	}
 
 	public String getQuery() {

@@ -40,7 +40,7 @@ public class CranfieldQueryParser {
 					// create a new cranfield document
 					CranfieldQuery cranfieldQuery = new CranfieldQuery();
 					//as the docIds in the document are incorrect
-					cranfieldQuery.setDocId((++docId).toString());
+					cranfieldQuery.setQueryId((++docId).toString());
 					// returns next next if it's a new section
 					setBody(cranfieldQuery, scanner);
 					queryList.add(cranfieldQuery);
@@ -73,13 +73,6 @@ public class CranfieldQueryParser {
 			cranfieldQuery.setQuery(body);
 		}
 		return null;
-	}
-
-	private void setDocumentId(CranfieldQuery cranfieldQuery, String line) {
-		String docId = line.split(BLANK_SPACE)[1];
-		// Field.Store.YES ensures that this field will be stored and retrievable with
-		// the results
-		cranfieldQuery.setDocId(docId);
 	}
 
 }
