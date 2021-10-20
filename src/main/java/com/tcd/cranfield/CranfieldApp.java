@@ -31,7 +31,6 @@ public class CranfieldApp {
 	
 	private static File cranfieldDataFile;
 	private static File cranfieldQueryFile;
-	private static String outputDirectory = "target/";
 
 	public static void main(String[] args) {
 		if(args.length<2) {
@@ -71,7 +70,7 @@ public class CranfieldApp {
 		//search
 		LuceneSearcher luceneSearcher = new LuceneSearcher(indexDataPath);
 		List<ScoreDoc> totalScoreDocList = new ArrayList<ScoreDoc>();
-		Path path = Paths.get(outputDirectory+analyzer.getClass().getSimpleName() + "_" + config.getSimilarity().getClass().getSimpleName() + "_output.txt");
+		Path path = Paths.get(analyzer.getClass().getSimpleName().toLowerCase() + "_" + config.getSimilarity().getClass().getSimpleName().toLowerCase() + "_output.txt");
 		try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
 			
 			// loop over 225 search queries
