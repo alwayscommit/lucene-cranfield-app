@@ -17,7 +17,7 @@ public class LuceneIndexer {
 
 	public Path index(List<Document> cranfieldDocList, IndexWriterConfig config) {
 		try {
-			Path indexPath = Paths.get("/indexed-docs/"+config.getAnalyzer().getClass().getSimpleName()+"_"+config.getSimilarity());
+			Path indexPath = Paths.get("indexed-docs/"+config.getAnalyzer().getClass().getSimpleName()+"_"+config.getSimilarity());
 			Directory directory = FSDirectory.open(indexPath);
 			IndexWriter iwriter = new IndexWriter(directory, config);
 			iwriter.addDocuments(cranfieldDocList);

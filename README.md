@@ -1,1 +1,0 @@
-# lucene-cranfield-app
