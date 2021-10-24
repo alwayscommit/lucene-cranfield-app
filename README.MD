@@ -1,6 +1,11 @@
+Please note: All the relevant files are present under /home/ranglana, 
+You can either 
+use 'rm -rf lucene-cranfield-app' to delete my git project and clone again and follow steps 1 to 3
+OR
+jump to step 3 to package the project and run it and use trec_eval on the search results
+
 1.  SSH into Azure VM (VM name: ranglana) 
     Using Putty and the shared pem or ppk file, login into 20.105.171.105 VM hosted on Azure.
-
 
 2.  Clone the repository the email id and token shared below
 	git clone https://github.com/alwayscommit/lucene-cranfield-app.git
@@ -9,6 +14,8 @@
 	
 3.  Run the code
 	cd lucene-cranfield-app/
-	mvn clean install
+	mvn clean package
 	java -jar target/lucene-cranfield-app-1.jar ../cranfield/cran.all.1400 ../cranfield/cran.qry
+	cd /home/ranglana
+	run ./evaluate.sh (this will run trec_eval on the search output files and save the results in map.txt, precision.txt, recall.txt, gmap.txt)
 	
