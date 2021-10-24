@@ -18,6 +18,11 @@ import org.apache.lucene.search.Query;
 
 import com.tcd.cranfield.model.CranfieldQuery;
 
+/**
+ * Responsible for parsing Cranfield Queries
+ * @author ranglana
+ *
+ */
 public class CranfieldQueryParser {
 
 	private static final String DOC_ID_PATTERN = ".I ";
@@ -25,6 +30,7 @@ public class CranfieldQueryParser {
 	private static final String BLANK_SPACE = " ";
 
 	public List<CranfieldQuery> parseQuery(File cranfieldQueryFile) {
+		System.out.println("Parsing Cranfield Queries...");
 		List<CranfieldQuery> queryList = new ArrayList<CranfieldQuery>();
 
 		String line = "";

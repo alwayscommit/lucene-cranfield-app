@@ -1,5 +1,10 @@
 package com.tcd.cranfield.model;
 
+/**
+ * Model class to hold the parsed Queries
+ * @author ranglana
+ *
+ */
 public class CranfieldQuery {
 
 	private String queryId;

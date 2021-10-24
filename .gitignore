@@ -3,3 +3,5 @@
 .project
 /indexed-docs/
 /trec_eval
+.vscode
+.settings/org.eclipse.jdt.core.prefs

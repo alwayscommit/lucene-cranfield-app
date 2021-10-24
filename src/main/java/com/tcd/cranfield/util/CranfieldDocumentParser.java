@@ -12,6 +12,11 @@ import org.apache.lucene.document.Field;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
 
+/**
+ * Responsible for parsing cranfield document file containing 1400 documents
+ * @author ranglana
+ *
+ */
 public class CranfieldDocumentParser {
 
 	private static final String ID_PATTERN = ".I ";
@@ -23,7 +28,7 @@ public class CranfieldDocumentParser {
 	private static final String STARTS_WITH_ANY_HEADER = ".";
 
 	public List<Document> parseCranfieldData(File cranfieldData) {
-//		path = "D:\\- Trinity\\Information Retrieval and Web Search\\Assignment\\submission\\cranfield data\\cran.all.1400";
+		System.out.println("Parsing Cranfield Data...");
 		List<Document> cranfieldDocList = new ArrayList<Document>();
 
 		String line = "";
@@ -129,8 +134,6 @@ public class CranfieldDocumentParser {
 
 	private void setDocumentId(Document cranfieldDoc, String line) {
 		String docId = line.split(BLANK_SPACE)[1];
-		// Field.Store.YES ensures that this field will be stored and retrievable with
-		// the results
 		cranfieldDoc.add(new StringField("docId", docId, Field.Store.YES));
 	}
 
