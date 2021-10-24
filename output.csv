@@ -1,0 +1,16 @@
+WhitespaceAnalyzer/Classic Similarity,0.3225
+WhitespaceAnalyzer/BM25 Similarity,0.3650
+WhitespaceAnalyzer/BM25 Similarity k1=2/b=0.8,0.3677
+StandardAnalyzer/Classic Similarity,0.3579
+StandardAnalyzer/BM25 Similarity,0.4075
+StandardAnalyzer/BM25 Similarity k1=2/b=0.8,0.4108
+SimpleAnalyzer/Classic Similarity,0.3616
+SimpleAnalyzer/BM25 Similarity,0.4085
+SimpleAnalyzer/BM25 Similarity k1=2/b=0.8,0.4110
+EnglishAnalyzer/Classic Similarity,0.4148
+EnglishAnalyzer/BM25 Similarity,0.4323
+EnglishAnalyzer/BM25 Similarity k1=2/b=0.8,0.4338
+CustomAnalyzer/BM25 Similarity k1=2/b=0.8,0.4399
+EnglishAnalyzer-Stopword/Classic,0.4184
+EnglishAnalyzer-Stopword/BM25,0.4401
+EnglishAnalyzer-Stopword/BM25 k1=2/b=0.8,0.4384
