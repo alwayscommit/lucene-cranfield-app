@@ -8,14 +8,14 @@ jump to step 3 to package the project and run it and use trec_eval on the search
     i. Using Putty and the shared pem or ppk file, login into 20.105.171.105 VM hosted on Azure.
 
 2.  Clone the repository the email id and token shared below
-	i. git clone https://github.com/alwayscommit/lucene-cranfield-app.git
-	ii. username - ranglaniaakash.git@gmail.com
-	iii. shared token - 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
+	i. git clone https://github.com/alwayscommit/lucene-cranfield-app.git <br/>
+	ii. username - ranglaniaakash.git@gmail.com <br/>
+	iii. shared token - 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 <br/>
 	
 3.  Run the code
-	cd lucene-cranfield-app/
-	mvn clean package
-	java -jar target/lucene-cranfield-app-1.jar ../cranfield/cran.all.1400 ../cranfield/cran.qry
-	cd /home/ranglana
-	run ./evaluate.sh (this will run trec_eval on the search output files and save the results in map.txt, precision.txt, recall.txt, gmap.txt) 
+	cd lucene-cranfield-app/ <br/>
+	mvn clean package <br/>
+	java -jar target/lucene-cranfield-app-1.jar ../cranfield/cran.all.1400 ../cranfield/cran.qry <br/>
+	cd /home/ranglana <br/>
+	run ./evaluate.sh (this will run trec_eval on the search output files and save the results in map.txt, precision.txt, recall.txt, gmap.txt) <br/> 
 	
