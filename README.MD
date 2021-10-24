@@ -8,9 +8,9 @@ jump to step 3 to package the project and run it and use trec_eval on the search
     i. Using Putty and the shared pem or ppk file, login into 20.105.171.105 VM hosted on Azure.
 
 2.  Clone the repository the email id and token shared below <br/>
-	i. git clone https://github.com/alwayscommit/lucene-cranfield-app.git <br/>
-	ii. username - ranglaniaakash.git@gmail.com <br/>
-	iii. shared token - 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 <br/>
+	git clone https://github.com/alwayscommit/lucene-cranfield-app.git <br/>
+	username - ranglaniaakash.git@gmail.com <br/>
+	shared token - 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 <br/>
 	
 3.  Run the code <br/>
 	cd lucene-cranfield-app/ <br/>
