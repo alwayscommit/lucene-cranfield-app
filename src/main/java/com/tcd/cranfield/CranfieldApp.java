@@ -106,9 +106,9 @@ public class CranfieldApp {
 			run(getIndexWriterConfig(new EnglishAnalyzer(stopwordSet), new BM25Similarity(2f, 0.8f)), "EnglishAnalyzer_Stopwords_BM25Similarity_Parameter");
 			
 			//Tried different similarities but none of them scored as good as BM25Similarity
-			run(getIndexWriterConfig(new EnglishAnalyzer(stopwordSet), new LMJelinekMercerSimilarity(0.1f)), "english-stop-j0");
+			/*run(getIndexWriterConfig(new EnglishAnalyzer(stopwordSet), new LMJelinekMercerSimilarity(0.1f)), "english-stop-j0");
 			run(getIndexWriterConfig(new EnglishAnalyzer(stopwordSet), new LMDirichletSimilarity()), "english-stop-dirichlet");
-			run(getIndexWriterConfig(new EnglishAnalyzer(stopwordSet), new BooleanSimilarity()), "english-stop-boolean");
+			run(getIndexWriterConfig(new EnglishAnalyzer(stopwordSet), new BooleanSimilarity()), "english-stop-boolean");*/
 
 			// custom analyzer
 			run(getIndexWriterConfig(new CustomAnalyzer(stopwordSet), new BM25Similarity(2f, 0.8f)), "CustomAnalyzer_BM25Similarity_Parameter");
@@ -136,7 +136,7 @@ public class CranfieldApp {
 	}
 
 	private static String createOutputDirectory() throws IOException {
-		File folder = new File("output");
+		File folder = new File("/home/ranglana/output");
 		if (folder.exists()) {
 			FileUtils.deleteDirectory(folder);
 		}
