@@ -20,8 +20,7 @@ import com.tcd.cranfield.CranfieldApp;
 public class AnalyzerUtil {
 
 	public static CharArraySet getStopwords(String fileName) throws IOException, URISyntaxException {
-		String text = new String(Files
-				.readAllBytes(Paths.get(CranfieldApp.class.getClassLoader().getResource(fileName).toURI())));
+		String text = new String(Files.readAllBytes(Paths.get(fileName)));
 		final List<String> stopWords = Arrays.asList(text.split(" "));
 		final CharArraySet stopSet = new CharArraySet(stopWords, false);
 		return CharArraySet.unmodifiableSet(stopSet);
