@@ -83,7 +83,7 @@ public class CranfieldApp {
 
 		// run for different analyzers and similarities
 		try {
-			/*run(getIndexWriterConfig(new WhitespaceAnalyzer(), new ClassicSimilarity()), "WhitespaceAnalyzer_ClassicSimilarity");
+			run(getIndexWriterConfig(new WhitespaceAnalyzer(), new ClassicSimilarity()), "WhitespaceAnalyzer_ClassicSimilarity");
 			run(getIndexWriterConfig(new WhitespaceAnalyzer(), new BM25Similarity()), "WhitespaceAnalyzer_BM25Similarity");
 			run(getIndexWriterConfig(new WhitespaceAnalyzer(), new BM25Similarity(2f, 0.8f)), "WhitespaceAnalyzer_BM25Similarity_Parameter");
 			
@@ -97,7 +97,7 @@ public class CranfieldApp {
 			
 			run(getIndexWriterConfig(new EnglishAnalyzer(), new ClassicSimilarity()), "EnglishAnalyzer_ClassicSimilarity");
 			run(getIndexWriterConfig(new EnglishAnalyzer(), new BM25Similarity()), "EnglishAnalyzer_BM25Similarity");
-			run(getIndexWriterConfig(new EnglishAnalyzer(), new BM25Similarity(2f, 0.8f)), "EnglishAnalyzer_BM25Similarity_Parameter");*/
+			run(getIndexWriterConfig(new EnglishAnalyzer(), new BM25Similarity(2f, 0.8f)), "EnglishAnalyzer_BM25Similarity_Parameter");
 			
 			// english stop words picked from https://www.ranks.nl/stopwords, adding more stopwords decreases the mAP score
 			CharArraySet stopwordSet = AnalyzerUtil.getStopwords(STOPWORDS_FILE);
