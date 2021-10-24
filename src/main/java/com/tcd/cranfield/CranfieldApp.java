@@ -59,7 +59,7 @@ public class CranfieldApp {
 	private static File cranfieldQueryFile;
 	private static List<Document> cranfieldDocList;
 	private static List<CranfieldQuery> cranfieldQueryList;
-	private static String outputFileDirectory;
+	private static final String OUTPUT_FILE_DIRECTORY ="/home/ranglana/output";
 	private static final String STOPWORDS_FILE = "/home/ranglana/lucene-cranfield-app/src/main/resources/stopwords.txt";
 
 	public static void main(String[] args) throws IOException {
@@ -79,7 +79,7 @@ public class CranfieldApp {
 		cranfieldQueryList = queryParser.parseQuery(cranfieldQueryFile);
 
 		// to clear old results and create a fresh output directory
-		outputFileDirectory = createOutputDirectory();
+		createOutputDirectory();
 
 		// run for different analyzers and similarities
 		try {
@@ -117,7 +117,7 @@ public class CranfieldApp {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("Output results have been saved in " + outputFileDirectory);
+		System.out.println("Output results have been saved in " + OUTPUT_FILE_DIRECTORY);
 	}
 
 	private static boolean invalidArguments(String[] args) {
@@ -136,7 +136,7 @@ public class CranfieldApp {
 	}
 
 	private static String createOutputDirectory() throws IOException {
-		File folder = new File("/home/ranglana/output");
+		File folder = new File(OUTPUT_FILE_DIRECTORY);
 		if (folder.exists()) {
 			FileUtils.deleteDirectory(folder);
 		}
@@ -176,7 +176,7 @@ public class CranfieldApp {
 	}
 
 	private static Path getOutputPath(String outputFileName) {
-		return Paths.get("output/" + outputFileName + ".txt");
+		return Paths.get(OUTPUT_FILE_DIRECTORY + outputFileName + ".txt");
 	}
 
 	private static IndexWriterConfig getIndexWriterConfig(Analyzer analyzer, Similarity similarity) {
