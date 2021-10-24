@@ -60,7 +60,7 @@ public class CranfieldApp {
 	private static List<Document> cranfieldDocList;
 	private static List<CranfieldQuery> cranfieldQueryList;
 	private static String outputFileDirectory;
-	private static final String STOPWORDS_FILE = "stopwords.txt";
+	private static final String STOPWORDS_FILE = "/home/ranglana/lucene-cranfield-app/src/main/resources/stopwords.txt";
 
 	public static void main(String[] args) throws IOException {
 		if (invalidArguments(args)) {
