@@ -17,5 +17,5 @@ jump to step 3 to package the project and run it and use trec_eval on the search
 	mvn clean package
 	java -jar target/lucene-cranfield-app-1.jar ../cranfield/cran.all.1400 ../cranfield/cran.qry
 	cd /home/ranglana
-	run ./evaluate.sh (this will run trec_eval on the search output files and save the results in map.txt, precision.txt, recall.txt, gmap.txt)
+	run ./evaluate.sh (this will run trec_eval on the search output files and save the results in map.txt, precision.txt, recall.txt, gmap.txt) 
 	
