@@ -83,7 +83,7 @@ public class CranfieldApp {
 		// run for different analyzers and similarities
 		try {
 
-			/*run(getIndexWriterConfig(new KeywordAnalyzer(), new ClassicSimilarity()), "KeywordAnalyzer_ClassicSimilarity"); // default k=1.2f, b=0.75f
+			run(getIndexWriterConfig(new KeywordAnalyzer(), new ClassicSimilarity()), "KeywordAnalyzer_ClassicSimilarity"); // default k=1.2f, b=0.75f
 			run(getIndexWriterConfig(new KeywordAnalyzer(), new BM25Similarity()), "KeywordAnalyzer_BM25Similarity");
 			// mAP score increases a bit by changing
 			run(getIndexWriterConfig(new KeywordAnalyzer(), new BM25Similarity(2f, 0.8f)), "KeywordAnalyzer_BM25Similarity_Parameter");
@@ -94,13 +94,13 @@ public class CranfieldApp {
 			
 			run(getIndexWriterConfig(new EnglishAnalyzer(), new ClassicSimilarity()), "SimpleAnalyzer_ClassicSimilarity");
 			run(getIndexWriterConfig(new EnglishAnalyzer(), new BM25Similarity()), "SimpleAnalyzer_BM25Similarity");
-			run(getIndexWriterConfig(new EnglishAnalyzer(), new BM25Similarity(2f, 0.8f)), "SimpleAnalyzer_BM25Similarity_Parameter");*/
+			run(getIndexWriterConfig(new EnglishAnalyzer(), new BM25Similarity(2f, 0.8f)), "SimpleAnalyzer_BM25Similarity_Parameter");
 
 			// default english stop words picked from https://www.ranks.nl/stopwords, adding more stopwords decreases the mAP score
 			CharArraySet stopwordSet = AnalyzerUtil.getStopwords("stopwords.txt");
-//			run(getIndexWriterConfig(new EnglishAnalyzer(stopwordSet), new ClassicSimilarity()), "EnglishAnalyzer_Stopwords_ClassicSimilarity");
-//			run(getIndexWriterConfig(new EnglishAnalyzer(stopwordSet), new BM25Similarity()), "EnglishAnalyzer_Stopwords_BM25Similarity");
-//			run(getIndexWriterConfig(new EnglishAnalyzer(stopwordSet), new BM25Similarity(2f, 0.8f)), "EnglishAnalyzer_Stopwords_BM25Similarity_Parameter");
+			run(getIndexWriterConfig(new EnglishAnalyzer(stopwordSet), new ClassicSimilarity()), "EnglishAnalyzer_Stopwords_ClassicSimilarity");
+			run(getIndexWriterConfig(new EnglishAnalyzer(stopwordSet), new BM25Similarity()), "EnglishAnalyzer_Stopwords_BM25Similarity");
+			run(getIndexWriterConfig(new EnglishAnalyzer(stopwordSet), new BM25Similarity(2f, 0.8f)), "EnglishAnalyzer_Stopwords_BM25Similarity_Parameter");
 
 			/*Tried different similarities but none of them scored as good as BM25Similarity
 			run(getIndexWriterConfig(new EnglishAnalyzer(stopwordSet), new LMJelinekMercerSimilarity(0.1f)), "english-stop-j0");
