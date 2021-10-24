@@ -176,7 +176,7 @@ public class CranfieldApp {
 	}
 
 	private static Path getOutputPath(String outputFileName) {
-		return Paths.get("output\\" + outputFileName + ".txt");
+		return Paths.get("output/" + outputFileName + ".txt");
 	}
 
 	private static IndexWriterConfig getIndexWriterConfig(Analyzer analyzer, Similarity similarity) {
